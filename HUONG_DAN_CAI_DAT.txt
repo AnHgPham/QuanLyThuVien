@@ -1,0 +1,99 @@
+===============================================================
+  HUONG DAN CAI DAT VA CHAY DU AN QUAN LY THU VIEN
+===============================================================
+
+=== BUOC 1: TAI VA CAI DAT VISUAL STUDIO 2022 ===
+
+1. Truy cap: https://visualstudio.microsoft.com/downloads/
+2. Chon ban "Community" (mien phi) -> bam "Free download"
+3. Chay file VisualStudioSetup.exe vua tai ve
+4. Man hinh chon Workloads hien ra -> CHI CAN TICH VAO:
+   [x] ".NET desktop development"
+5. Bam "Install" -> doi cai dat xong
+6. Khoi dong lai may neu duoc yeu cau
+
+   LUU Y: Khi cai Visual Studio, .NET 6 SDK se duoc cai tu dong.
+
+
+=== BUOC 2: TAI VA CAI DAT SQL SERVER EXPRESS ===
+
+1. Truy cap: https://www.microsoft.com/en-us/sql-server/sql-server-downloads
+2. Keo xuong duoi trang, tim muc "Or, download a free specialized edition"
+3. Bam nut "Download now" o cot BEN PHAI - muc "Express"
+4. Chay file SQL2022-SSEI-Expr.exe vua tai ve
+5. Chon "Basic" (cai dat nhanh nhat)
+6. Bam "Accept" -> "Install" -> doi cai dat xong
+7. SAU KHI CAI XONG, man hinh se hien thi:
+   - Instance Name: SQLEXPRESS (hoac SQLEXPRESS01)
+   GHI NHO TEN INSTANCE nay!
+
+
+=== BUOC 3: CAU HINH DU AN ===
+
+1. Mo file App.config trong thu muc du an
+2. Tim dong connectionString, sua Data Source cho dung ten instance:
+
+   Neu instance la SQLEXPRESS:
+   Data Source=localhost\SQLEXPRESS
+
+   Neu instance la SQLEXPRESS01:
+   Data Source=localhost\SQLEXPRESS01
+
+
+=== BUOC 4: TAO DATABASE ===
+
+Mo CMD hoac PowerShell va chay:
+
+   sqlcmd -S localhost\SQLEXPRESS01 -E -i "DUONG_DAN_DU_AN\Database\CreateDatabase.sql"
+
+Vi du:
+   sqlcmd -S localhost\SQLEXPRESS01 -E -i "d:\Downloads\QuanLyThuVien\Database\CreateDatabase.sql"
+
+Thay SQLEXPRESS01 bang ten instance cua ban neu khac.
+Neu thay dong "Tao Database QuanLyThuVienDB thanh cong!" la OK.
+
+
+=== BUOC 5: CHAY DU AN ===
+
+CO 2 CACH CHAY:
+
+--- Cach 1: Chay bang CMD/PowerShell ---
+
+   Mo CMD hoac PowerShell, chay:
+
+   cd d:\Downloads\QuanLyThuVien
+   dotnet build
+   dotnet run
+
+--- Cach 2: Chay bang Visual Studio ---
+
+   1. Mo Visual Studio 2022
+   2. Chon "Open a project or solution"
+   3. Tim den file: QuanLyThuVien.sln
+   4. Bam F5 hoac nut "Start" de chay
+
+
+=== TOM TAT NHANH ===
+
+   Buoc 1: Sua App.config (neu can)
+   Buoc 2: sqlcmd -S localhost\SQLEXPRESS01 -E -i "...\CreateDatabase.sql"
+   Buoc 3: dotnet build
+   Buoc 4: dotnet run
+
+
+=== XU LY LOI THUONG GAP ===
+
+Loi 1: "sqlcmd khong duoc nhan dang"
+   -> Tai sqlcmd: winget install Microsoft.SqlServer.SqlCmd
+
+Loi 2: "Khong ket noi duoc SQL Server"
+   -> Mo services.msc -> tim "SQL Server (SQLEXPRESS01)" -> bam Start
+   -> Kiem tra ten instance trong App.config
+
+Loi 3: "Database khong ton tai"
+   -> Chay lai lenh sqlcmd o Buoc 4
+
+Loi 4: "dotnet khong duoc nhan dang"
+   -> Cai lai Visual Studio voi workload ".NET desktop development"
+
+===============================================================
